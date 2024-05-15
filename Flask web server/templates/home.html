@@ -4,202 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../static/CSS/styles.css">
-    <title>Raspberry Pi LED demo</title>
+    <title>Plant server
+    </title>
 </head>
 
 <body>
     <div id="grid_wrapper">
         <h2 id="ledStripTitle">LED strip</h2>
-        <button onclick="setLedStripState(0)" id="onBtnStrip">ON</button>
-        <br>
-        <br>
-        <button onclick="setLedStripState(1)" id="offBtnStrip">OFF</button>
+        <button onclick="setState(0)" id="onBtnStrip">ON</button>
 
-        <button onclick="setLedStripState(2)" id="autoBtnStrip">AUTO</button>
+        <button onclick="setState(1)" id="offBtnStrip">OFF</button>
+
+        <button onclick="setState(2)" id="autoBtnStrip">AUTO</button>
 
         <h2 id="whiteLedTitle">White LED</h2>
-        <button onclick="setLedStripState(3)" id="onBtnWhiteLed">ON</button>
-        <br>
-        <br>
-        <button onclick="setLedStripState(4)" id="offBtnWhiteLed">OFF</button>
+        <button onclick="setState(3)" id="onBtnWhiteLed">ON</button>
 
-        <button onclick="setLedStripState(5)" id="autoBtnWhiteLed">AUTO</button>
+        <button onclick="setState(4)" id="offBtnWhiteLed">OFF</button>
+
+        <button onclick="setState(5)" id="autoBtnWhiteLed">AUTO</button>
 
         <h2 id="heatingTitle">Heating</h2>
-        <button onclick="setLedStripState(6)" id="onBtnHeating">ON</button>
-        <br>
-        <br>
-        <button onclick="setLedStripState(7)" id="offBtnHeating">OFF</button>
+        <button onclick="setState(6)" id="onBtnHeating">ON</button>
 
-        <button onclick="setLedStripState(8)" id="autoBtnHeating">AUTO</button>
+        <button onclick="setState(7)" id="offBtnHeating">OFF</button>
+
+        <button onclick="setState(8)" id="autoBtnHeating">AUTO</button>
         <!-- Använder jinja för att föra över temp och humidity data från Python till HTML -->
         <p id="humidity">{{ humidity }}%</p>
         <p id="temperature">{{ temperature }}°C</p>
     </div>
 </body>
 
-<script src="../templates/JS/script.js" type="application/javascript">
-
-    const setLedStripState = async (ledState) => {
-        const fetchSettings = { method: 'POST' };
-        const url = "/ledStrip/" + ledState; // Construct the URL based on the ledState value
-    
-        const fetchResponse = await fetch(url, fetchSettings); // Väntar på return från python (dubbelkolla detta)
-        console.log(url) //Logga url i konsollen för lättare felsökning
-
-        
-
-        
-
-
-
-        // Switchcaset lägger till och tar bort bakgrunden på knapparna när raspberry pi tagit emot en request och genomfört den successfully  
-        if (fetchResponse.ok){ // If satsen körs om pythonfunktionen setLedStrip(state) skickar tillbaka 204
-            switch (url){
-                case "/ledStrip/0":
-                    document.getElementById("onBtnStrip").style = "background: #60A917;";
-                    document.getElementById("offBtnStrip").style = "background: none;";
-                    document.getElementById("autoBtnStrip").style = "background: none;";
-                    lastResponse = 0;
-                    break;
-                case "/ledStrip/1":
-                    document.getElementById("offBtnStrip").style = "background: #E51400;";
-                    document.getElementById("onBtnStrip").style = "background: none;";
-                    document.getElementById("autoBtnStrip").style = "background: none";
-                    lastResponse = 1;
-                    break;
-                case "/ledStrip/2":
-                    document.getElementById("autoBtnStrip").style = "background: #172aa9;";
-                    document.getElementById("onBtnStrip").style = "background: none";
-                    document.getElementById("offBtnStrip").style = "background: none";
-                    lastResponse = 2;
-                    break;
-                case "/ledStrip/3":
-                    document.getElementById("onBtnWhiteLed").style = "background: #60A917;";
-                    document.getElementById("offBtnWhiteLed").style = "background: none";
-                    document.getElementById("autoBtnWhiteLed").style = "background: none";
-                    break;
-                case "/ledStrip/4":
-                    document.getElementById("offBtnWhiteLed").style = "background: #E51400;";
-                    document.getElementById("onBtnWhiteLed").style = "background: none;";
-                    document.getElementById("autoBtnWhiteLed").style = "background: none";
-                    break;
-                case "/ledStrip/5":
-                    document.getElementById("autoBtnWhiteLed").style = "background: #172aa9;";
-                    document.getElementById("offBtnWhiteLed").style = "background: none;";
-                    document.getElementById("onBtnWhiteLed").style = "background: none;";
-                    break;
-                case "/ledStrip/6":
-                    document.getElementById("onBtnHeating").style = "background: #60A917;";
-                    document.getElementById("offBtnHeating").style = "background: none";
-                    document.getElementById("autoBtnHeating").style = "background: none";
-                    break;
-                case "/ledStrip/7":
-                    document.getElementById("offBtnHeating").style = "background: #E51400;";
-                    document.getElementById("onBtnHeating").style = "background: none";
-                    document.getElementById("autoBtnHeating").style = "background: none";
-                    break;
-                case "/ledStrip/8":
-                    document.getElementById("autoBtnHeating").style = "background: #172aa9;";
-                    document.getElementById("onBtnHeating").style = "background: none";
-                    document.getElementById("offBtnHeating").style = "background: none";
-                    break;
-            } 
-
-            
-        // Meddelande i webbläsaren om pythonfunktionen inte genomförts successfully
-         } else {
-            alert("Command not executed by Raspberry Pi..."); 
-         } 
-        // const startTime = new Date().getTime();
-         //   while (new Date().getTime() < startTime + 2000) {
-            // Do nothing (block execution)
-         //   }
-           // delay(2000);
-        
-
-
-
-
-        //  if (fetchResponse.ok){
-        //     switch(url){
-        //         case "/ledStrip/2":
-        //             setTimeout(2000);
-        //             setLedStripState(2);
-        //             break;
-
-        //     }
-        //  }
-
-
-        //fetch("/ledstrip/")
-        //.then((response) => response.json())
-        //.then((json) => console.log(json));
-
-
-        //console.log(await fetch("/ledstrip/"))
-        
-        // }
-        // pseudokod:
-        // if fethresponse == 1
-        //   set button background color
-
-        if (!fetchResponse.ok) {
-            alert("Command not executed by Raspberry Pi...");
-        }
-    }
-
-    // const setWhiteLedState = async (isWhiteLedOn) => {
-    //     const fetchSettings = { method: 'POST' };
-    //     const fetchResponse = await fetch("/whiteLed/" + (isWhiteLedOn ? 1 : 0), fetchSettings);
-    //     if (!fetchResponse.ok) {
-    //         alert("command not executed by raspberry pi...");
-    //     }
-    // }
-
-    // const setHeatingState = async (isHeatingOn) => {
-    //     const fetchSettings = { method: 'POST' };
-    //     const fetchResponse = await fetch("/heating/" + (isHeatingOn ? 1 : 0), fetchSettings);
-    //     if (!fetchResponse.ok) {
-    //         alert("command not executed by raspberry pi...");
-    //     }
-    // }
-
-    // Följande funktioner körs när en knapp tryckts på webbsidan. Dessa funktioner kör sedan en annan funktion med olika värden. 
-
-    // function onLedStripOn() {
-    //     setLedStripState(0);
-    // }
-    // function onLedStripOff() {
-    //     setLedStripState(1);
-    // }
-
-    // function onLedStripAuto(){
-    //     setLedStripState(2);
-    // }
-
-    // function onWhiteLedOn() {
-    //     setLedStripState(3);
-    // }
-    // function onWhiteLedOff() {
-    //     setLedStripState(4);
-    // }
-    // function onWhiteLedAuto(){
-    //     setLedStripState(5);
-    // }
-
-    // function onHeatingOn() {
-    //     setLedStripState(6);
-    // }
-    // function onHeatingOff() {
-    //     setLedStripState(7);
-    // }
-    // function onHeatingAuto(){
-    //     setLedStripState(8);
-    // }
-</script>
-
-
-
+<script src="../static/CSS/script.js" type="application/javascript"></script>
 
 </html>
