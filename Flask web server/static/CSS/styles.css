@@ -1,0 +1,151 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: black;
+    color: white;
+}
+
+
+#grid_wrapper{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: auto 100px auto 100px auto 100px 40px;
+    grid-template-areas: 
+    "ledStripTitle ledStripTitle ledStripTitle"
+     "offStrip autoStrip onStrip"
+     "whiteLedTitle whiteLedTitle whiteLedTitle"
+     "offLed autoLed onLed"
+     "heatingTitle heatingTitle heatingTitle"
+     "offHeating autoHeating onHeating"
+     "temp nil hum";
+
+}
+#ledStripTitle{
+    grid-area: ledStripTitle;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 2rem;
+}
+
+#whiteLedTitle{
+    grid-area: whiteLedTitle;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 2rem;
+}
+
+#heatingTitle{
+    grid-area: heatingTitle;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 2rem;
+}
+
+#onBtnStrip{
+    grid-area: onStrip;
+    height: 50px;
+    width: 100px;
+    text-align: center;
+    color: white;
+    border: 10px solid #60A917;
+}
+#offBtnStrip{
+    grid-area: offStrip;
+    height: 50px;
+    width: 100px;
+    color: white;
+    border: 10px solid #E51400;
+
+}
+#autoBtnStrip{
+    grid-area: autoStrip;
+    height: 50px;
+    width: 100px;
+    color: white;
+    border: 10px solid #172aa9;
+
+}
+
+#onBtnWhiteLed{
+    grid-area: onLed;
+    height: 50px;
+    width: 100px;
+    color: white;
+    border: 10px solid #60A917;
+}
+#offBtnWhiteLed{
+    grid-area: offLed;
+    height: 50px;
+    width: 100px;
+    color: white;
+    border: 10px solid #E51400;
+}
+#onBtnHeating{
+    grid-area: onHeating;
+    height: 50px;
+    width: 100px;
+    color: white;
+    border: 10px solid #60A917;
+}
+#autoBtnWhiteLed{
+    grid-area: autoLed;
+    height: 50px;
+    width: 100px;
+    color: white;
+    border: 10px solid #172aa9;
+}
+#offBtnHeating{
+    grid-area: offHeating;
+    height: 50px;
+    width: 100px;
+    color: white;
+    border: 10px solid #E51400;
+}
+
+#autoBtnHeating{
+    grid-area: autoHeating;
+    height: 50px;
+    width: 100px;
+    color: white;
+    border: 10px solid #172aa9;
+    
+}
+#humidity{
+    grid-area: hum;
+    font-size: 2rem;
+    font-weight: 600;
+    font-family: sans-serif;
+}
+#temperature{
+    grid-area: temp;
+    font-size: 2rem;
+    font-weight: 600;
+    font-family: sans-serif;
+}
+
+#button_div{
+    text-align: center;
+}
+button {
+    color: black;
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+
+.onBtn {
+    background-color: #60A917;
+}
+
+.onBtn:active {
+    background-color: #56703c;
+}
+
+.offBtn {
+    background-color: #E51400;
+}
+
+.offBtn:active {
+    background-color: #8c3730;
+}
